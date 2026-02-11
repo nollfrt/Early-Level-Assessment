@@ -2,7 +2,9 @@ package com.challenge.api.repository;
 
 import com.challenge.api.model.Employee;
 import java.util.*;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class EmployeeRepositoryImpl implements EmployeeRepository {
     /**
      * Since we are not concerned with a persistence layer, I will use a Map to store Employees
