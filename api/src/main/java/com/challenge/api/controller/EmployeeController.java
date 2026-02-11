@@ -1,6 +1,10 @@
 package com.challenge.api.controller;
 
+import com.challenge.api.dto.CreateEmployeeRequest;
 import com.challenge.api.model.Employee;
+import com.challenge.api.service.EmployeeNotFoundException;
+import com.challenge.api.service.EmployeeService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.http.HttpStatus;
@@ -13,6 +17,13 @@ import org.springframework.web.server.ResponseStatusException;
 @RestController
 @RequestMapping("/api/v1/employee")
 public class EmployeeController {
+    private final EmployeeService service;
+    private final ObjectMapper objectMapper;
+
+    public EmployeeController(EmployeeService service, ObjectMapper objectMapper) {
+        this.service = service;
+        this.objectMapper = objectMapper;
+    }
 
     /**
      * @implNote Need not be concerned with an actual persistence layer. Generate mock Employee models as necessary.
@@ -20,7 +31,7 @@ public class EmployeeController {
      */
     @GetMapping("/all")
     public List<Employee> getAllEmployees() {
-        throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED);
+        return service.getAllEmployees();
     }
 
     /**
@@ -30,16 +41,26 @@ public class EmployeeController {
      */
     @GetMapping("/{uuid}")
     public Employee getEmployeeByUuid(@PathVariable UUID uuid) {
-        throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED);
+        try {
+            return service.getEmployeeByUuid(uuid);
+        } catch (EmployeeNotFoundException ex) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, ex.getMessage(), ex);
+        }
     }
 
     /**
+     * Using "Object requestBody" instead of "CreateEmployeeRequest request" as param
+     *      only to keep method signature
+     *
      * @implNote Need not be concerned with an actual persistence layer.
      * @param requestBody hint!
      * @return Newly created Employee
      */
     @PostMapping
     public Employee createEmployee(@RequestBody Object requestBody) {
-        throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED);
+        CreateEmployeeRequest request = objectMapper.convertValue(requestBody, CreateEmployeeRequest.class);
+
+        // missing validation of requestBody, would add that next
+        return service.createEmployee(request);
     }
 }
