@@ -86,7 +86,7 @@ public class EmployeeImpl implements Employee{
     @Override
     public void setFullName(String name) {
         //TODO handle first and last name
-        this.fullName = fullName;
+        this.fullName = name;
     }
 
     /**
