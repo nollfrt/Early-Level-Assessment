@@ -6,7 +6,9 @@ import com.challenge.api.model.EmployeeImpl;
 import com.challenge.api.repository.EmployeeRepository;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.stereotype.Service;
 
+@Service
 public class EmployeeService {
     private final EmployeeRepository repository;
 
