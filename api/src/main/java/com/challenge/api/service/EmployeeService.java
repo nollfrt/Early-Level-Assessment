@@ -20,8 +20,7 @@ public class EmployeeService {
     }
 
     public Employee getEmployeeByUuid(UUID uuid) {
-        //TODO create exception to use here
-        return null;
+        return repository.findByUuid(uuid).orElseThrow(() -> new EmployeeNotFoundException(uuid));
     }
 
     public Employee createEmployee(CreateEmployeeRequest request) {
