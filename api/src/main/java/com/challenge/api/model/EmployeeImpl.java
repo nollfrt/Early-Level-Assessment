@@ -3,11 +3,11 @@ package com.challenge.api.model;
 import java.time.Instant;
 import java.util.UUID;
 
-public class EmployeeImpl implements Employee{
+public class EmployeeImpl implements Employee {
     private UUID uuid;
     private String firstName;
     private String lastName;
-    private String fullName; //might be able to get this from first/last
+    private String fullName; // might be able to get this from first/last
     private Integer salary;
     private Integer age;
     private String jobTitle;
@@ -85,7 +85,7 @@ public class EmployeeImpl implements Employee{
      */
     @Override
     public void setFullName(String name) {
-        //TODO handle first and last name
+        // TODO handle first and last name
         this.fullName = name;
     }
 
